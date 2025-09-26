@@ -1,4 +1,4 @@
-name: Trigger Jenkins (Reusable)
+name: Build SmartApps (Reusable)
 
 on:
   workflow_call:
@@ -10,15 +10,12 @@ on:
         required: false
         default: main
         type: string
-      sha:
-        required: false
-        default: ''
-        type: string
+
 jobs:
   call-jenkins:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger Jenkins build
+      - name: Trigger Jenkins
         run: |
           curl -X POST \
             -u "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }}" \
