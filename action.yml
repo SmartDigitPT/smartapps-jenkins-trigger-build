@@ -1,0 +1,13 @@
+name: 'Trigger Jenkins'
+description: 'Calls Jenkins job via API'
+inputs:
+  job:
+    required: true
+    description: 'Jenkins job name'
+runs:
+  using: "composite"
+  steps:
+    - run: |
+        curl -X POST \
+          -u "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }}" \
+          "${{ secrets.JENKINS_URL }}/job/${{ inputs.job }}/build"
