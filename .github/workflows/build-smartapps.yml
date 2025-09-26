@@ -6,10 +6,6 @@ on:
       job:
         required: true
         type: string
-      branch:
-        required: false
-        default: main
-        type: string
 
 jobs:
   call-jenkins:
