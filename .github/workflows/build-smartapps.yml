@@ -17,8 +17,17 @@ jobs:
           echo "JENKINS_USER=${{ secrets.JENKINS_USER }}"
           echo "JENKINS_TOKEN=${{ secrets.JENKINS_TOKEN }}"
 
+      - name: Validate secrets
+        run: |
+          if [ -z "${{ secrets.JENKINS_URL }}" ] || \
+             [ -z "${{ secrets.JENKINS_USER }}" ] || \
+             [ -z "${{ secrets.JENKINS_TOKEN }}" ]; then
+            echo "❌ Missing one or more required secrets: JENKINS_URL, JENKINS_USER, JENKINS_TOKEN"
+            exit 1
+          fi
+
       - name: Trigger Jenkins
         run: |
-          curl -X POST \
+          curl -v -X POST \
             -u "${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }}" \
             "${{ secrets.JENKINS_URL }}/job/${{ inputs.job }}/build"
