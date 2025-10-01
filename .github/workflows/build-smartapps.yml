@@ -11,6 +11,12 @@ jobs:
   call-jenkins:
     runs-on: ubuntu-latest
     steps:
+      - name: Debug secrets (masked)
+        run: |
+          echo "JENKINS_URL=${{ secrets.JENKINS_URL }}"
+          echo "JENKINS_USER=${{ secrets.JENKINS_USER }}"
+          echo "JENKINS_TOKEN=${{ secrets.JENKINS_TOKEN }}"
+
       - name: Trigger Jenkins
         run: |
           curl -X POST \
